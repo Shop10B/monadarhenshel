@@ -116,10 +116,15 @@ export async function getProducts() {
   const api = await initFirebase();
   if (!api) return ensureLocalProducts();
 
-  const { collection, getDocs, orderBy, query } = api.storeModule;
-  const snapshot = await getDocs(query(collection(api.db, "products"), orderBy("nameBn")));
-  if (snapshot.empty) return defaultProducts;
-  return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  try {
+    const { collection, getDocs, orderBy, query } = api.storeModule;
+    const snapshot = await getDocs(query(collection(api.db, "products"), orderBy("nameBn")));
+    if (snapshot.empty) return defaultProducts;
+    return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  } catch (error) {
+    console.warn("Firebase products unavailable; using built-in menu.", error);
+    return defaultProducts;
+  }
 }
 
 export async function saveProduct(product) {
@@ -163,18 +168,22 @@ export async function trackProductClick(product) {
     return;
   }
 
-  const { doc, increment, serverTimestamp, setDoc } = api.storeModule;
-  await setDoc(
-    doc(api.db, "productClicks", product.id),
-    {
-      productId: product.id,
-      nameBn: product.nameBn,
-      nameEn: product.nameEn,
-      clicks: increment(1),
-      lastClickedAt: serverTimestamp()
-    },
-    { merge: true }
-  );
+  try {
+    const { doc, increment, serverTimestamp, setDoc } = api.storeModule;
+    await setDoc(
+      doc(api.db, "productClicks", product.id),
+      {
+        productId: product.id,
+        nameBn: product.nameBn,
+        nameEn: product.nameEn,
+        clicks: increment(1),
+        lastClickedAt: serverTimestamp()
+      },
+      { merge: true }
+    );
+  } catch (error) {
+    console.warn("Firebase click tracking unavailable.", error);
+  }
 }
 
 export async function getTrendingProducts(products) {
@@ -187,9 +196,14 @@ export async function getTrendingProducts(products) {
       .slice(0, 6);
   }
 
-  const { collection, getDocs, limit, orderBy, query } = api.storeModule;
-  const snapshot = await getDocs(query(collection(api.db, "productClicks"), orderBy("clicks", "desc"), limit(6)));
-  return snapshot.docs.map((doc) => doc.data());
+  try {
+    const { collection, getDocs, limit, orderBy, query } = api.storeModule;
+    const snapshot = await getDocs(query(collection(api.db, "productClicks"), orderBy("clicks", "desc"), limit(6)));
+    return snapshot.docs.map((doc) => doc.data());
+  } catch (error) {
+    console.warn("Firebase trending unavailable.", error);
+    return products.slice(0, 6);
+  }
 }
 
 export async function loginAdmin(email, password) {
