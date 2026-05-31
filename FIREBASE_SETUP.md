@@ -2,7 +2,7 @@
 
 1. Create a Firebase project.
 2. Enable Authentication with Email/Password.
-3. Create the admin user in Firebase Authentication.
+3. Create the admin user in Firebase Authentication. Keep that email and password only in Firebase/your password manager.
 4. Create Firestore Database.
 5. Paste your web app config into `firebase-config.js`.
 
@@ -31,7 +31,10 @@ service cloud.firestore {
 }
 ```
 
-Until Firebase config is added, the app uses local browser storage with demo admin login:
+Until Firebase config is added, the public menu can use local browser storage, but admin login is disabled. This keeps admin credentials out of the public GitHub Pages code.
 
-- Email: `admin@monadarhenshel.com`
-- Password: `ChangeMe123!`
+Security notes:
+
+- Never commit the admin password to this repository.
+- Use a strong Firebase Authentication password and rotate it if it was ever shared.
+- Keep Firestore write/delete rules restricted to authenticated users.

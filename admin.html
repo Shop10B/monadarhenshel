@@ -40,16 +40,16 @@
           <p class="eyebrow">Admin Login</p>
           <h1 class="login-title">Protected Admin</h1>
           <p class="muted">
-            Sign in with your admin email and password. Firebase Auth will be used after Firebase config is added.
+            Sign in with your Firebase Authentication admin account.
           </p>
           <form id="loginForm" class="admin-form single">
             <label>
               Email
-              <input id="adminEmail" type="email" required placeholder="admin@monadarhenshel.com" />
+              <input id="adminEmail" type="email" required placeholder="Admin email" autocomplete="username" />
             </label>
             <label>
               Password
-              <input id="adminPassword" type="password" required placeholder="Password" />
+              <input id="adminPassword" type="password" required placeholder="Password" autocomplete="current-password" />
             </label>
             <button class="primary-button" type="submit">Login</button>
             <p id="loginMessage" class="form-message"></p>

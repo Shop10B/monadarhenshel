@@ -1,4 +1,4 @@
-import { demoAdmin, firebaseConfig } from "./firebase-config.js";
+import { firebaseConfig } from "./firebase-config.js";
 
 const productKey = "monadar-henshel-products-v8";
 const clickKey = "monadar-henshel-clicks-v1";
@@ -195,11 +195,7 @@ export async function getTrendingProducts(products) {
 export async function loginAdmin(email, password) {
   const api = await initFirebase();
   if (!api) {
-    if (email === demoAdmin.email && password === demoAdmin.password) {
-      sessionStorage.setItem(authKey, "true");
-      return { email };
-    }
-    throw new Error("Invalid email or password.");
+    throw new Error("Admin login requires Firebase Authentication. Add Firebase config and create the admin user in Firebase.");
   }
 
   const { signInWithEmailAndPassword } = api.authModule;

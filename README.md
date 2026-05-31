@@ -6,13 +6,11 @@ Static website for Monadar Henshel with:
 - Customer menu page: `menu.html`
 - English admin page: `admin.html`
 - Firebase-ready product storage and click tracking
-- Local demo fallback when Firebase config is empty
+- Public menu fallback when Firebase config is empty
 - Admin image upload with browser crop to `900 x 620 px`
 
-Demo admin login before Firebase is configured:
-
-- Email: `admin@monadarhenshel.com`
-- Password: `ChangeMe123!`
+Admin login uses Firebase Authentication. Do not commit admin emails,
+passwords, or private credentials to this public repository.
 
 Run locally:
 
