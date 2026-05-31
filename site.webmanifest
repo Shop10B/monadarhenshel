@@ -1,0 +1,16 @@
+{
+  "name": "Monadar Henshel",
+  "short_name": "Monadar",
+  "description": "Home-cooked Bengali food in Kolkata.",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#160c07",
+  "theme_color": "#0f7a3c",
+  "icons": [
+    {
+      "src": "assets/favicon.svg",
+      "sizes": "64x64",
+      "type": "image/svg+xml"
+    }
+  ]
+}

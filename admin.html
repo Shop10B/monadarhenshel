@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#0f7a3c" />
+    <title>Admin | Monadar Henshel</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anek+Bangla:wght@400;600;700;800&family=Inter:wght@500;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css?v=8" />
+  </head>
+  <body data-page="admin">
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Monadar Henshel home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 64 64" focusable="false">
+            <path d="M18 29c0-10 8-18 18-18s18 8 18 18v3H18z" />
+            <path d="M14 34h44l-4 16H18z" />
+            <path d="M26 24c0-6 4-11 10-13M36 11c7 1 12 6 12 13" />
+            <path d="M23 50h28" />
+          </svg>
+        </span>
+        <span>Monadar Henshel <small>মনাদার হেঁশেল</small></span>
+      </a>
+      <nav class="top-nav" aria-label="Primary navigation">
+        <a href="index.html">Home</a>
+        <a href="menu.html">Customer Menu</a>
+      </nav>
+    </header>
+
+    <main class="page-main">
+      <section class="admin-shell section-reveal">
+        <div id="loginPanel" class="login-panel">
+          <p class="eyebrow">Admin Login</p>
+          <h1 class="login-title">Protected Admin</h1>
+          <p class="muted">
+            Sign in with your admin email and password. Firebase Auth will be used after Firebase config is added.
+          </p>
+          <form id="loginForm" class="admin-form single">
+            <label>
+              Email
+              <input id="adminEmail" type="email" required placeholder="admin@monadarhenshel.com" />
+            </label>
+            <label>
+              Password
+              <input id="adminPassword" type="password" required placeholder="Password" />
+            </label>
+            <button class="primary-button" type="submit">Login</button>
+            <p id="loginMessage" class="form-message"></p>
+          </form>
+        </div>
+
+        <div id="adminPanel" class="admin-panel hidden">
+          <div class="section-heading admin-heading">
+            <div>
+              <p class="eyebrow">Admin Panel</p>
+              <h1>Manage Today's Menu</h1>
+            </div>
+            <div class="admin-toolbar">
+              <button id="resetMenu" class="reset-button" type="button">Reset Product Catalog</button>
+              <button id="logoutButton" class="ghost-button small" type="button">Logout</button>
+            </div>
+          </div>
+
+          <section class="trend-panel">
+            <div>
+              <p class="eyebrow">Trending Products</p>
+              <h2>Most Clicked Products</h2>
+            </div>
+            <div id="trendList" class="trend-list"></div>
+          </section>
+
+          <form id="itemForm" class="admin-form">
+            <input type="hidden" id="itemId" />
+            <label>
+              Food name Bengali
+              <input id="nameBn" type="text" placeholder="দই কাতলা" required />
+            </label>
+            <label>
+              Food name English
+              <input id="nameEn" type="text" placeholder="Dahi Katla" required />
+            </label>
+            <label>
+              Food name Hindi
+              <input id="nameHi" type="text" placeholder="दही कतला" />
+            </label>
+            <label>
+              Category
+              <select id="itemCategory" required>
+                <option value="veg">Veg</option>
+                <option value="non-veg">Non-Veg</option>
+                <option value="both">Both</option>
+              </select>
+            </label>
+            <label>
+              Short description Bengali
+              <textarea id="descriptionBn" required></textarea>
+            </label>
+            <label>
+              Short description English
+              <textarea id="descriptionEn" required></textarea>
+            </label>
+            <label>
+              Short description Hindi
+              <textarea id="descriptionHi" required></textarea>
+            </label>
+            <label>
+              Health benefit Bengali
+              <textarea id="benefitBn" required></textarea>
+            </label>
+            <label>
+              Health benefit English
+              <textarea id="benefitEn" required></textarea>
+            </label>
+            <label>
+              Health benefit Hindi
+              <textarea id="benefitHi" required></textarea>
+            </label>
+            <section class="image-uploader">
+              <div>
+                <p class="eyebrow">Product Image</p>
+                <h2>Upload and crop</h2>
+                <p class="muted">Recommended final size: 900 x 620 px. The crop tool stores the image with the product, so it works on local hosting and static hosting.</p>
+              </div>
+              <label class="upload-drop">
+                Upload food photo
+                <input id="imageUpload" type="file" accept="image/*" />
+              </label>
+              <div id="cropTool" class="crop-tool hidden">
+                <canvas id="cropCanvas" width="900" height="620" aria-label="Product image crop preview"></canvas>
+                <div class="crop-controls">
+                  <label>
+                    Zoom
+                    <input id="cropZoom" type="range" min="1" max="3" step="0.01" value="1" />
+                  </label>
+                  <label>
+                    Horizontal
+                    <input id="cropX" type="range" min="-100" max="100" step="1" value="0" />
+                  </label>
+                  <label>
+                    Vertical
+                    <input id="cropY" type="range" min="-100" max="100" step="1" value="0" />
+                  </label>
+                </div>
+                <button id="applyCrop" class="ghost-button" type="button">Use Cropped Image</button>
+              </div>
+              <input id="itemImageData" type="hidden" />
+              <img id="imagePreview" class="image-preview hidden" alt="Current product preview" />
+            </section>
+            <label class="toggle-row">
+              <input id="itemEnabled" type="checkbox" checked />
+              Show in today's menu
+            </label>
+            <div class="form-actions">
+              <button class="primary-button" type="submit">Save Product</button>
+              <button id="clearForm" class="ghost-button" type="button">Clear</button>
+            </div>
+          </form>
+
+          <div id="adminList" class="admin-list"></div>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="app.js?v=8"></script>
+  </body>
+</html>

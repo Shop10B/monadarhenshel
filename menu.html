@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="bn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Browse today's available Monadar Henshel Bengali food menu and order on WhatsApp." />
+    <meta name="theme-color" content="#0f7a3c" />
+    <title>Menu | Monadar Henshel</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="manifest" href="site.webmanifest" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anek+Bangla:wght@400;600;700;800&family=Inter:wght@500;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css?v=8" />
+  </head>
+  <body data-page="menu">
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Monadar Henshel home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 64 64" focusable="false">
+            <path d="M18 29c0-10 8-18 18-18s18 8 18 18v3H18z" />
+            <path d="M14 34h44l-4 16H18z" />
+            <path d="M26 24c0-6 4-11 10-13M36 11c7 1 12 6 12 13" />
+            <path d="M23 50h28" />
+          </svg>
+        </span>
+        <span>Monadar Henshel <small>মনাদার হেঁশেল</small></span>
+      </a>
+      <nav class="top-nav" aria-label="Primary navigation">
+        <a href="index.html" data-i18n="navHome">হোম</a>
+        <a href="index.html#events" data-i18n="navEvents">অনুষ্ঠানের অর্ডার</a>
+        <a href="index.html#location" data-i18n="navLocation">ঠিকানা</a>
+      </nav>
+      <div class="header-actions">
+        <div class="language-switch" aria-label="Translate website">
+          <button class="lang-button active" data-lang="bn" type="button">বাংলা</button>
+          <button class="lang-button" data-lang="en" type="button">EN</button>
+          <button class="lang-button" data-lang="hi" type="button">हिंदी</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="page-main">
+      <section class="page-hero section-reveal">
+        <p class="eyebrow" data-i18n="menuKicker">আজকের মেনু</p>
+        <h1 data-i18n="menuTitle">যে পদগুলি আজ পাওয়া যাচ্ছে</h1>
+        <p data-i18n="menuCopy">
+          পরিমাণ লিখে Order Now চাপুন। WhatsApp মেসেজে পদ, quantity এবং দাম জানার অনুরোধ থাকবে।
+        </p>
+      </section>
+
+      <section class="menu-section section-reveal">
+        <div class="menu-controls" aria-label="Menu filters">
+          <button class="filter-button active" data-filter="all" type="button" data-i18n="filterAll">সব</button>
+          <button class="filter-button" data-filter="veg" type="button" data-i18n="filterVeg">ভেজ</button>
+          <button class="filter-button" data-filter="non-veg" type="button" data-i18n="filterNonVeg">নন-ভেজ</button>
+          <button class="filter-button" data-filter="both" type="button" data-i18n="filterBoth">দু'রকম</button>
+        </div>
+        <div id="menuGrid" class="menu-grid" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div>
+        <h2>Monadar Henshel <span>মনাদার হেঁশেল</span></h2>
+        <p data-i18n="tagline">ঘরের স্বাদ, যত্নের রান্না</p>
+      </div>
+      <nav aria-label="Footer navigation">
+        <a href="index.html" data-i18n="navHome">হোম</a>
+        <a href="index.html#events" data-i18n="navEvents">অনুষ্ঠানের অর্ডার</a>
+        <a href="admin.html" data-i18n="navAdmin">Admin</a>
+      </nav>
+      <address>
+        10B, Asgar Mistry Lane, Kolkata-700046<br />
+        <a href="tel:+919804626641">+91 98046 26641</a>
+      </address>
+    </footer>
+
+    <script type="module" src="app.js?v=8"></script>
+  </body>
+</html>
