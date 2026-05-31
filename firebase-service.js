@@ -121,8 +121,17 @@ export async function getProducts() {
     const snapshot = await getDocs(query(collection(api.db, "products"), orderBy("nameBn")));
     if (snapshot.empty) return defaultProducts;
     const firebaseProducts = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-    if (!firebaseProducts.some((product) => product.enabled)) return defaultProducts;
-    return firebaseProducts;
+    const mergedProducts = new Map(defaultProducts.map((product) => [product.id, product]));
+
+    firebaseProducts.forEach((product) => {
+      if (product.deleted) {
+        mergedProducts.delete(product.id);
+        return;
+      }
+      mergedProducts.set(product.id, { ...(mergedProducts.get(product.id) || {}), ...product });
+    });
+
+    return Array.from(mergedProducts.values()).filter((product) => !product.deleted);
   } catch (error) {
     console.warn("Firebase products unavailable; using built-in menu.", error);
     return defaultProducts;
@@ -130,7 +139,7 @@ export async function getProducts() {
 }
 
 export async function saveProduct(product) {
-  const nextProduct = { ...product, id: product.id || crypto.randomUUID() };
+  const nextProduct = { ...product, id: product.id || crypto.randomUUID(), deleted: false };
   const api = await initFirebase();
   if (!api) {
     const products = ensureLocalProducts();
@@ -153,8 +162,8 @@ export async function deleteProduct(id) {
     return;
   }
 
-  const { deleteDoc, doc } = api.storeModule;
-  await deleteDoc(doc(api.db, "products", id));
+  const { doc, setDoc } = api.storeModule;
+  await setDoc(doc(api.db, "products", id), { id, deleted: true, enabled: false }, { merge: true });
 }
 
 export async function trackProductClick(product) {
@@ -254,5 +263,5 @@ export async function resetProducts() {
   }
 
   const { doc, setDoc } = api.storeModule;
-  await Promise.all(defaultProducts.map((entry) => setDoc(doc(api.db, "products", entry.id), entry, { merge: true })));
+  await Promise.all(defaultProducts.map((entry) => setDoc(doc(api.db, "products", entry.id), { ...entry, deleted: false }, { merge: true })));
 }

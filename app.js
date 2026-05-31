@@ -8,7 +8,7 @@ import {
   resetProducts,
   saveProduct,
   trackProductClick
-} from "./firebase-service.js?v=12";
+} from "./firebase-service.js?v=13";
 
 const phoneNumber = "919804626641";
 const fallbackImage = "assets/monadar-kitchen-hero.webp";
