@@ -120,7 +120,9 @@ export async function getProducts() {
     const { collection, getDocs, orderBy, query } = api.storeModule;
     const snapshot = await getDocs(query(collection(api.db, "products"), orderBy("nameBn")));
     if (snapshot.empty) return defaultProducts;
-    return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    const firebaseProducts = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+    if (!firebaseProducts.some((product) => product.enabled)) return defaultProducts;
+    return firebaseProducts;
   } catch (error) {
     console.warn("Firebase products unavailable; using built-in menu.", error);
     return defaultProducts;
