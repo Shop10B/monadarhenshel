@@ -11,7 +11,8 @@ import {
 } from "./firebase-service.js?v=8";
 
 const phoneNumber = "919804626641";
-const fallbackImage = "assets/monadar-kitchen-hero.png";
+const fallbackImage = "assets/monadar-kitchen-hero.webp";
+const fallbackPngImage = "assets/monadar-kitchen-hero.png";
 const languageKey = "monadar-henshel-language";
 
 const translations = {
@@ -216,6 +217,18 @@ function escapeAttr(value) {
   return escapeHtml(value).replaceAll("`", "&#096;");
 }
 
+function optimizedImage(src) {
+  if (typeof src !== "string") return fallbackImage;
+  return src.startsWith("assets/") && src.endsWith(".png") ? src.replace(/\.png$/, ".webp") : src;
+}
+
+function fallbackForImage(src) {
+  if (typeof src === "string" && src.startsWith("assets/") && src.endsWith(".webp")) {
+    return src.replace(/\.webp$/, ".png");
+  }
+  return fallbackPngImage;
+}
+
 function categoryLabel(category) {
   const labels = {
     bn: { veg: "ভেজ", "non-veg": "নন-ভেজ", both: "দু'রকম" },
@@ -281,7 +294,10 @@ function renderMenu() {
     card.className = "food-card";
     card.innerHTML = `
       <div class="food-images">
-        ${images.map((src) => `<img src="${escapeAttr(src)}" alt="${escapeAttr(productText(product, "name"))}" onerror="this.src='${fallbackImage}'" />`).join("")}
+        ${images.map((src) => {
+          const imageSrc = optimizedImage(src);
+          return `<img src="${escapeAttr(imageSrc)}" alt="${escapeAttr(productText(product, "name"))}" loading="lazy" decoding="async" onerror="this.onerror=null;this.src='${escapeAttr(fallbackForImage(imageSrc))}'" />`;
+        }).join("")}
       </div>
       <div class="food-body">
         <div class="food-topline">

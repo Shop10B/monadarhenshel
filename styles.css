@@ -212,7 +212,10 @@ textarea {
   background:
     linear-gradient(90deg, rgba(22, 12, 7, 0.96), rgba(22, 12, 7, 0.62) 48%, rgba(22, 12, 7, 0.25)),
     linear-gradient(0deg, rgba(22, 12, 7, 0.9), transparent 38%),
-    url("assets/monadar-kitchen-hero.png") center / cover;
+    image-set(
+      url("assets/monadar-kitchen-hero.webp") type("image/webp"),
+      url("assets/monadar-kitchen-hero.png") type("image/png")
+    ) center / cover;
   transform: scale(1.03);
 }
 

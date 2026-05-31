@@ -21,7 +21,8 @@
       href="https://fonts.googleapis.com/css2?family=Anek+Bangla:wght@400;600;700;800&family=Inter:wght@500;700;800;900&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="styles.css?v=8" />
+    <link rel="preload" as="image" href="assets/monadar-kitchen-hero.webp" type="image/webp" />
+    <link rel="stylesheet" href="styles.css?v=9" />
   </head>
   <body data-page="home">
     <header class="site-header">
@@ -76,7 +77,10 @@
         </div>
         <div class="showcase-grid">
           <div class="showcase-visual">
-            <img src="assets/monadar-kitchen-hero.png" alt="Monadar Henshel home kitchen" />
+            <picture>
+              <source srcset="assets/monadar-kitchen-hero.webp" type="image/webp" />
+              <img src="assets/monadar-kitchen-hero.png" alt="Monadar Henshel home kitchen" loading="lazy" decoding="async" />
+            </picture>
           </div>
           <div class="feature-list">
             <article>
@@ -210,6 +214,6 @@
       </address>
     </footer>
 
-    <script type="module" src="app.js?v=8"></script>
+    <script type="module" src="app.js?v=9"></script>
   </body>
 </html>
